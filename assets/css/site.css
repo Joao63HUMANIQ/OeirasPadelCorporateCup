@@ -1,0 +1,242 @@
+/* Oeiras Valley Padel Corporate Cup 2027
+   Estilos do site. Todas as classes começam por "ov-" para não colidirem com os estilos da ficha de inscrição.
+   Tema: as secções são brancas com texto azul (#13202F). As zonas azuis (cabeçalho, herói, .ov-alt, parceiros, rodapé)
+   usam as mesmas peças com as variáveis trocadas. */
+:root{
+  --ov-navy:#13202F; --ov-coral:#E8533A;
+  --ov-display:'Montserrat','Arial Black',Arial,sans-serif; --ov-body:'Roboto','Helvetica Neue',Arial,sans-serif;
+  /* secção branca */
+  --ov-bg:#FFFFFF; --ov-fg:#13202F; --ov-muted:#56626F; --ov-line:#D3DAE1; --ov-card:#F5F7F9; --ov-deep:#EEF2F5; --ov-ink:#B83A24; --ov-num:#E8533A;
+}
+/* secção azul */
+.ov-header,.ov-nav,.ov-hero,.ov-alt,.ov-footer{
+  --ov-bg:#13202F; --ov-fg:#FFFFFF; --ov-muted:#B9C5D1; --ov-line:#2E4156; --ov-card:#1A2B3D; --ov-deep:#0E1823; --ov-ink:#FF8C76; --ov-num:#FF8C76;
+  background:var(--ov-bg);color:var(--ov-fg);
+}
+.ov-tint{background:#F5F7F9;--ov-card:#FFFFFF}
+
+body.ov-page{margin:0;background:var(--ov-bg);color:var(--ov-fg);font:16px/1.7 var(--ov-body);-webkit-font-smoothing:antialiased}
+body.ov-page *,.ov-header *,.ov-nav *,.ov-sponsors *,.ov-footer *,.ov-pagehead *{box-sizing:border-box}
+body.ov-page img{max-width:100%}
+body.ov-page p{margin:0 0 18px}
+body.ov-page main a{color:var(--ov-ink)}
+[hidden]{display:none!important}
+.ov-wrap{max-width:1148px;margin:0 auto;padding-inline:max(24px,env(safe-area-inset-left,0px)) max(24px,env(safe-area-inset-right,0px))}
+.ov-skip{position:absolute;left:-9999px}
+.ov-skip:focus{left:12px;top:12px;z-index:100;background:#fff;color:var(--ov-navy);padding:10px 14px;border-radius:6px}
+.ov-header a:focus-visible,.ov-nav a:focus-visible,.ov-nav button:focus-visible,body.ov-page a:focus-visible,body.ov-page button:focus-visible,body.ov-page select:focus-visible,.ov-sponsors a:focus-visible,.ov-footer a:focus-visible{outline:3px solid var(--ov-coral);outline-offset:2px}
+
+/* ===== cabeçalho: nome da competição à esquerda, logos dos co-organizadores à direita ===== */
+.ov-header{font-family:var(--ov-body);min-height:72px}
+.ov-brand{display:flex;align-items:center;justify-content:space-between;gap:16px 32px;padding-block:20px;flex-wrap:wrap}
+.ov-brand h1{margin:0;font:900 clamp(15px,2.1vw,20px)/1.15 var(--ov-display);text-transform:uppercase;letter-spacing:.02em;text-wrap:balance;color:#fff}
+.ov-brand h1 a{color:inherit;text-decoration:none}
+.ov-brand h1 span{color:var(--ov-coral)}
+.ov-orgs{display:flex;align-items:center;gap:30px;list-style:none;margin:0;padding:0}
+.ov-orgs a{display:block;line-height:0;opacity:.85;transition:opacity .15s}
+.ov-orgs a:hover{opacity:1}
+.ov-orgs img{height:30px;width:auto;display:block}
+/* versão minimalista: logos a uma só cor (branco) sobre o azul */
+.ov-mono{filter:brightness(0) invert(1)}
+@media (max-width:640px){.ov-orgs{gap:20px}.ov-orgs img{height:22px}}
+
+/* ===== navegação: fica presa ao topo, com os 2 CTA sempre à vista ===== */
+.ov-nav{position:sticky;top:0;z-index:50;border-top:1px solid var(--ov-line);font-family:var(--ov-body)}
+.ov-nav .ov-wrap{display:flex;align-items:center;gap:12px;min-height:64px}
+.ov-nav ul{display:flex;gap:0;list-style:none;margin:0;padding:0;flex:1;min-width:0}
+.ov-nav li a{display:block;padding:8px 8px;border-radius:6px;color:var(--ov-muted);text-decoration:none;font:700 12px/1.2 var(--ov-display);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.ov-nav li a:hover{color:#fff;background:var(--ov-card)}
+.ov-nav li a[aria-current=page]{color:#fff;box-shadow:inset 0 -3px 0 var(--ov-coral)}
+.ov-cta{display:flex;gap:8px;flex:none}
+.ov-toggle{display:none;background:transparent;color:#fff;border:1px solid var(--ov-line);border-radius:6px;padding:10px 12px;min-height:40px;font:700 12.5px/1 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;cursor:pointer}
+@media (max-width:1170px){
+  .ov-toggle{display:block}
+  .ov-nav .ov-wrap{flex-wrap:wrap;padding-block:10px}
+  .ov-cta{margin-left:auto}
+  .ov-nav ul{display:none;flex-basis:100%;flex-direction:column;gap:0;padding-bottom:6px}
+  .ov-nav.ov-open ul{display:flex}
+  .ov-nav li a{padding:14px 4px;border-bottom:1px solid var(--ov-line);border-radius:0}
+}
+
+/* ===== botões ===== */
+.ov-btn,body.ov-page main a.ov-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:13px 22px;border-radius:6px;border:2px solid var(--ov-coral);background:var(--ov-coral);color:#fff;text-decoration:none;font:700 13px/1.1 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;cursor:pointer;text-align:center}
+.ov-btn:hover{filter:brightness(1.08)}
+.ov-btn.ov-ghost,body.ov-page main a.ov-btn.ov-ghost{background:transparent;color:var(--ov-fg)}
+.ov-btn.ov-ghost:hover{background:rgba(232,83,58,.12);filter:none}
+.ov-btn.ov-sm{min-height:40px;padding:9px 13px;font-size:12px}
+.ov-btn.ov-lg{min-height:52px;padding:15px 26px;font-size:13.5px}
+@media (max-width:420px){.ov-cta .ov-ghost{display:none}}
+
+/* ===== blocos de página ===== */
+.ov-section{padding-block:96px}
+.ov-section.ov-tight{padding-block:40px 96px}
+.ov-eyebrow{font:700 12px/1.2 var(--ov-display);letter-spacing:.16em;text-transform:uppercase;color:var(--ov-ink);margin:0 0 18px}
+.ov-h2{font:900 clamp(24px,3.4vw,34px)/1.15 var(--ov-display);text-transform:uppercase;margin:0 0 22px;text-wrap:balance;color:var(--ov-fg)}
+.ov-h3{font:900 clamp(18px,2.2vw,22px)/1.25 var(--ov-display);text-transform:uppercase;margin:0 0 20px;text-wrap:balance;color:var(--ov-fg)}
+.ov-h4{font:700 13.5px/1.3 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;color:var(--ov-fg)}
+.ov-lead{font-size:17.5px;line-height:1.65;color:var(--ov-muted);max-width:60ch;margin:0}
+.ov-text{max-width:64ch;color:var(--ov-muted)}
+.ov-text strong,.ov-lead strong{color:var(--ov-fg)}
+.ov-small{font-size:14.5px;margin-top:28px}
+.ov-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
+.ov-gap{margin-top:56px}
+.ov-gap-lg{margin-top:88px}
+.ov-pagehead{padding-block:88px 32px;background:var(--ov-bg);color:var(--ov-fg)}
+
+/* herói da home */
+.ov-hero{position:relative;overflow:hidden}
+.ov-hero .ov-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:104px 96px}
+.ov-hero .ov-h2{font-size:clamp(30px,4.6vw,48px);line-height:1.08;margin-bottom:26px}
+.ov-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:44px 0 0;padding:0;list-style:none;font-size:14.5px;color:var(--ov-muted)}
+.ov-facts b{color:var(--ov-ink);font-weight:700;margin-right:8px}
+.ov-court{height:360px;display:grid;place-items:center;min-width:0}
+.ov-court svg{display:block;width:250px;height:auto;overflow:visible;transform:perspective(900px) rotateX(52deg) rotateZ(-32deg);transform-origin:center}
+@media (max-width:860px){.ov-hero .ov-wrap{grid-template-columns:1fr;padding-block:64px 48px;gap:24px}.ov-court{height:230px;order:2}.ov-court svg{width:170px}}
+@media (prefers-reduced-motion:no-preference){.ov-ball{animation:ov-ball 3.2s ease-in-out infinite alternate}@keyframes ov-ball{from{transform:translate(0,0)}to{transform:translate(64px,-150px)}}}
+
+/* grelhas e cartões */
+.ov-grid{display:grid;gap:28px}
+.ov-g2{grid-template-columns:repeat(2,minmax(0,1fr));gap:56px}
+.ov-g2.ov-cards{gap:28px}
+.ov-g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ov-g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:980px){.ov-g3,.ov-g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.ov-g2{grid-template-columns:1fr;gap:40px}}
+@media (max-width:600px){.ov-g3,.ov-g4{grid-template-columns:1fr}}
+.ov-card{background:var(--ov-card);border:1px solid var(--ov-line);border-radius:10px;padding:30px;min-width:0}
+.ov-card p:last-child{margin-bottom:0}
+.ov-card p{color:var(--ov-muted)}
+.ov-card.ov-accent{border-left:5px solid var(--ov-coral)}
+.ov-num{font:900 clamp(34px,4.6vw,48px)/1 var(--ov-display);color:var(--ov-num);font-variant-numeric:tabular-nums;display:block;margin-bottom:14px}
+.ov-stat b{display:block;font:700 13.5px/1.3 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.ov-stat span:last-child{color:var(--ov-muted);font-size:14.5px;line-height:1.55;display:block}
+.ov-tag{display:inline-block;font:700 11.5px/1 var(--ov-display);letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:rgba(232,83,58,.14);color:var(--ov-ink);vertical-align:middle}
+.ov-tag.ov-neutral{background:var(--ov-deep);color:var(--ov-muted);margin-right:8px}
+
+/* faixa dupla de CTA: equipas e parceiros */
+.ov-hooks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:760px){.ov-hooks{grid-template-columns:1fr}}
+.ov-hook{border-radius:12px;padding:40px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.ov-hook .ov-h3{margin:0}
+.ov-hook p{margin:0 0 14px;max-width:44ch}
+.ov-hook .ov-btn{margin-top:auto}
+.ov-hook.ov-team{background:var(--ov-coral);color:#fff}
+.ov-hook.ov-team .ov-h3{color:#fff}
+.ov-hook.ov-team .ov-btn{background:#fff;border-color:#fff;color:var(--ov-navy)}
+.ov-hook.ov-brand-hook{background:transparent;border:2px solid var(--ov-coral)}
+.ov-hook.ov-brand-hook p{color:var(--ov-muted)}
+.ov-band{background:var(--ov-coral);color:#fff}
+.ov-band .ov-wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px 40px;padding-block:52px}
+.ov-band p{margin:0;font:700 clamp(16px,2vw,19px)/1.3 var(--ov-display);text-transform:uppercase;max-width:36ch;text-wrap:balance}
+.ov-band small{display:block;font:400 15px/1.55 var(--ov-body);text-transform:none;margin-top:10px;opacity:.95}
+.ov-band .ov-btn{background:#fff;border-color:#fff;color:var(--ov-navy)}
+
+/* tabelas */
+.ov-tablewrap{overflow-x:auto;border:1px solid var(--ov-line);border-radius:10px;background:var(--ov-bg)}
+.ov-table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5;font-variant-numeric:tabular-nums}
+.ov-table th,.ov-table td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--ov-line);vertical-align:top}
+.ov-table tr:last-child td{border-bottom:0}
+.ov-table thead th{font:700 11.5px/1.2 var(--ov-display);text-transform:uppercase;letter-spacing:.08em;color:var(--ov-muted);background:var(--ov-deep);white-space:nowrap}
+.ov-table td.ov-n,.ov-table th.ov-n{text-align:right}
+.ov-table td.ov-pos{font:900 16px/1.4 var(--ov-display);color:var(--ov-num);width:1%}
+.ov-table td.ov-total{font-weight:700;color:var(--ov-fg)}
+.ov-table td{color:var(--ov-muted)}
+.ov-table td strong{color:var(--ov-fg)}
+
+/* linha do tempo do calendário */
+.ov-timeline{list-style:none;margin:0;padding:0;display:grid;gap:28px}
+.ov-event{display:grid;grid-template-columns:170px minmax(0,1fr) auto;gap:36px;align-items:start;background:var(--ov-card);border:1px solid var(--ov-line);border-left:5px solid var(--ov-coral);border-radius:10px;padding:36px}
+.ov-date{font:900 26px/1 var(--ov-display);text-transform:uppercase;color:var(--ov-fg)}
+.ov-date small{display:block;font:700 12px/1.5 var(--ov-display);letter-spacing:.08em;color:var(--ov-ink);margin-top:12px}
+.ov-event ul{margin:16px 0 0;padding-left:18px;color:var(--ov-muted);font-size:14.5px;line-height:1.9}
+.ov-event p{color:var(--ov-muted);margin:0}
+.ov-event .ov-side{display:grid;gap:10px;justify-items:stretch;min-width:190px}
+@media (max-width:820px){.ov-event{grid-template-columns:1fr;gap:22px;padding:28px}.ov-event .ov-side{min-width:0;display:flex;flex-wrap:wrap}}
+
+/* filtros (resultados, classificação, galeria) */
+.ov-filters{display:flex;flex-wrap:wrap;gap:16px 20px;margin:0 0 36px;align-items:end}
+.ov-filters label{display:grid;gap:8px;font:700 11.5px/1.2 var(--ov-display);text-transform:uppercase;letter-spacing:.08em;color:var(--ov-muted)}
+.ov-filters select{font:500 15px/1.2 var(--ov-body);color:var(--ov-fg);background:var(--ov-bg);border:1px solid var(--ov-line);border-radius:6px;padding:10px 12px;min-height:46px;min-width:180px}
+@media (max-width:600px){.ov-filters label{flex:1 1 140px;min-width:0}.ov-filters select{min-width:0;width:100%}}
+.ov-chips{display:flex;flex-wrap:wrap;gap:10px}
+.ov-chip{font:700 12px/1 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ov-muted);background:transparent;border:1px solid var(--ov-line);border-radius:999px;padding:11px 16px;min-height:40px;cursor:pointer}
+.ov-chip[aria-pressed=true]{background:var(--ov-fg);border-color:var(--ov-fg);color:var(--ov-bg)}
+.ov-note{border:1px dashed var(--ov-coral);border-radius:8px;padding:14px 18px;font-size:14px;color:var(--ov-muted);margin:0 0 32px}
+.ov-note strong{color:var(--ov-fg)}
+.ov-empty{border:1px dashed var(--ov-line);border-radius:10px;padding:56px 24px;text-align:center;color:var(--ov-muted)}
+.ov-empty b{display:block;font:700 14px/1.3 var(--ov-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ov-fg);margin-bottom:10px}
+
+/* jogos */
+.ov-group{margin:0 0 44px}
+.ov-match{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:center;padding:18px 22px;border-bottom:1px solid var(--ov-line)}
+.ov-match:last-child{border-bottom:0}
+.ov-side-b{text-align:right}
+.ov-match .ov-pair{color:var(--ov-muted);line-height:1.45}
+.ov-match .ov-pair b{display:block;color:var(--ov-fg);font-weight:500}
+.ov-match .ov-pair small{font-size:13px}
+.ov-match .ov-win b{font-weight:700}
+.ov-match .ov-win b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ov-coral);margin-right:8px;vertical-align:middle}
+.ov-score{font:900 16px/1 var(--ov-display);font-variant-numeric:tabular-nums;color:var(--ov-fg);background:var(--ov-deep);border:1px solid var(--ov-line);border-radius:6px;padding:10px 14px;white-space:nowrap}
+@media (max-width:560px){.ov-match{grid-template-columns:1fr auto}.ov-match .ov-score{grid-row:1/3;grid-column:2}.ov-side-b{text-align:left}}
+
+/* notícias e galeria */
+.ov-news{display:flex;flex-direction:column;overflow:hidden;padding:0}
+.ov-news .ov-body{padding:26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.ov-news .ov-meta{font-size:13px;color:var(--ov-muted)}
+.ov-news p{font-size:15px;line-height:1.6}
+.ov-news .ov-h4{margin:0}
+.ov-news .ov-more{margin-top:auto;padding-top:8px;font:700 12px/1.2 var(--ov-display);text-transform:uppercase;letter-spacing:.06em}
+.ov-ph{aspect-ratio:16/10;background:repeating-linear-gradient(135deg,var(--ov-deep) 0 14px,var(--ov-card) 14px 28px);display:grid;place-items:center;color:var(--ov-muted);font:700 11.5px/1.5 var(--ov-display);letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:10px}
+.ov-thumb{aspect-ratio:16/10;object-fit:cover;width:100%;display:block}
+.ov-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:800px){.ov-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.ov-gallery{grid-template-columns:1fr}}
+.ov-tile{position:relative;margin:0;border:1px solid var(--ov-line);border-radius:10px;overflow:hidden;background:var(--ov-card)}
+.ov-tile a,.ov-tile button{display:block;width:100%;padding:0;border:0;background:none;color:inherit;cursor:pointer;text-align:left}
+.ov-tile figcaption{padding:14px 16px;font-size:13.5px;color:var(--ov-muted);display:flex;justify-content:space-between;gap:10px;align-items:center}
+.ov-tile .ov-tag{position:absolute;top:12px;left:12px;background:var(--ov-navy);color:#fff}
+.ov-lightbox{border:0;padding:0;background:transparent;max-width:min(1000px,94vw);max-height:92vh}
+.ov-lightbox::backdrop{background:rgba(6,12,19,.88)}
+.ov-lightbox img{display:block;max-width:100%;max-height:82vh;border-radius:8px}
+.ov-lightbox p{color:#fff;margin:10px 0 0;font:15px/1.4 var(--ov-body)}
+.ov-lightbox button{position:absolute;top:8px;right:8px;background:var(--ov-navy);color:#fff;border:1px solid #2E4156;border-radius:6px;padding:8px 12px;cursor:pointer;font:700 12px var(--ov-display);text-transform:uppercase}
+
+/* contactos */
+.ov-contact{display:grid;gap:14px;align-content:start;padding:36px}
+.ov-contact .ov-logo{height:64px;display:flex;align-items:center;margin-bottom:6px}
+.ov-contact .ov-logo img{max-height:52px;max-width:190px;width:auto}
+.ov-contact .ov-logo.ov-plate{background:var(--ov-navy);border-radius:8px;padding:10px 18px;justify-self:start}
+.ov-contact .ov-logo.ov-plate img{max-height:40px}
+.ov-contact .ov-h4{margin:0}
+.ov-contact dl{margin:8px 0 0;display:grid;gap:14px;font-size:15px}
+.ov-contact dt{font:700 11.5px/1.2 var(--ov-display);text-transform:uppercase;letter-spacing:.08em;color:var(--ov-muted)}
+.ov-contact dd{margin:4px 0 0;overflow-wrap:anywhere}
+.ov-todo{color:var(--ov-muted);font-style:italic}
+
+/* ===== parceiros: última secção de cada página ===== */
+.ov-sponsors{background:#F5F7F9;color:var(--ov-fg);font-family:var(--ov-body);padding-block:80px}
+.ov-sponsors-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 32px;margin-bottom:44px}
+.ov-sponsors-head h2{font:900 clamp(18px,2.2vw,22px)/1.2 var(--ov-display);text-transform:uppercase;margin:0}
+.ov-sponsors-head p{margin:10px 0 0;color:var(--ov-muted);font-size:15px;line-height:1.6;max-width:56ch}
+.ov-tiers{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:36px 32px}
+.ov-tier{grid-column:span 6;min-width:0}
+.ov-tier.ov-t1{grid-column:span 12}
+.ov-tier h3{font:700 11.5px/1.2 var(--ov-display);letter-spacing:.12em;text-transform:uppercase;color:var(--ov-muted);margin:0 0 12px;display:flex;gap:8px;align-items:baseline}
+.ov-tier h3 small{font:400 12px var(--ov-body);letter-spacing:0;text-transform:none}
+.ov-slots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}
+.ov-slot{height:68px;border:1px dashed #B4C0CC;border-radius:8px;background:#fff;display:grid;place-items:center;padding:8px;color:var(--ov-muted);font:700 10.5px/1.2 var(--ov-display);letter-spacing:.1em;text-transform:uppercase;text-align:center;text-decoration:none}
+a.ov-slot:hover{border-color:var(--ov-coral);color:var(--ov-ink)}
+.ov-slot.ov-filled{border-style:solid;background:#fff}
+.ov-slot img{max-height:100%;max-width:100%;object-fit:contain}
+.ov-t1 .ov-slots{grid-template-columns:minmax(0,1fr)}
+.ov-t1 .ov-slot{height:104px;font-size:12px}
+@media (max-width:760px){.ov-tier{grid-column:span 12}}
+
+/* ===== rodapé: separado do corpo por uma linha branca contínua de 1pt ===== */
+.ov-footer{--ov-bg:#0E1823;border-top:1pt solid #FFFFFF;color:var(--ov-muted);font:13.5px/1.6 var(--ov-body);text-align:left;padding:28px 0 32px}
+.ov-footer .ov-wrap{display:grid;gap:14px}
+.ov-footer nav ul{display:flex;flex-wrap:wrap;gap:6px 22px;list-style:none;margin:0;padding:0}
+.ov-footer a{color:#fff;text-decoration:none}
+.ov-footer a:hover{text-decoration:underline}
+.ov-footer nav a{font:700 12px/1.6 var(--ov-display);text-transform:uppercase;letter-spacing:.06em}
+.ov-footer p{margin:0}
