@@ -1,19 +1,19 @@
 /* Oeiras Valley Padel Corporate Cup 2027
    Estilos do site. Todas as classes começam por "ov-" para não colidirem com os estilos da ficha de inscrição.
-   Tema: as secções são brancas com texto azul (#13202F). As zonas azuis (cabeçalho, herói, .ov-alt, parceiros, rodapé)
-   usam as mesmas peças com as variáveis trocadas. */
+   Tema: a generalidade do site é branca ou cinza claro, com texto azul (#13202F) e o coral como única cor de destaque.
+   O azul-marinho fica reservado à barra de topo (cabeçalho + navegação) e ao rodapé; o resto do site não usa fundos azuis. */
 :root{
   --ov-navy:#13202F; --ov-coral:#E8533A;
   --ov-display:'Montserrat','Arial Black',Arial,sans-serif; --ov-body:'Roboto','Helvetica Neue',Arial,sans-serif;
   /* secção branca */
   --ov-bg:#FFFFFF; --ov-fg:#13202F; --ov-muted:#56626F; --ov-line:#D3DAE1; --ov-card:#F5F7F9; --ov-deep:#EEF2F5; --ov-ink:#B83A24; --ov-num:#E8533A;
 }
-/* secção azul */
-.ov-header,.ov-nav,.ov-hero,.ov-alt,.ov-footer{
+/* barra de topo e rodapé: as 2 únicas zonas em azul-marinho */
+.ov-header,.ov-nav,.ov-footer{
   --ov-bg:#13202F; --ov-fg:#FFFFFF; --ov-muted:#B9C5D1; --ov-line:#2E4156; --ov-card:#1A2B3D; --ov-deep:#0E1823; --ov-ink:#FF8C76; --ov-num:#FF8C76;
   background:var(--ov-bg);color:var(--ov-fg);
 }
-.ov-tint{background:#F5F7F9;--ov-card:#FFFFFF}
+.ov-tint,.ov-alt{background:#F5F7F9;--ov-card:#FFFFFF}
 
 body.ov-page{margin:0;background:var(--ov-bg);color:var(--ov-fg);font:16px/1.7 var(--ov-body);-webkit-font-smoothing:antialiased}
 body.ov-page *,.ov-header *,.ov-nav *,.ov-sponsors *,.ov-footer *,.ov-pagehead *{box-sizing:border-box}
@@ -85,14 +85,11 @@ body.ov-page main a{color:var(--ov-ink)}
 
 /* herói da home */
 .ov-hero{position:relative;overflow:hidden}
-.ov-hero .ov-wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:104px 96px}
+.ov-hero .ov-wrap{padding-block:104px 96px;max-width:760px}
 .ov-hero .ov-h2{font-size:clamp(30px,4.6vw,48px);line-height:1.08;margin-bottom:26px}
 .ov-facts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:44px 0 0;padding:0;list-style:none;font-size:14.5px;color:var(--ov-muted)}
 .ov-facts b{color:var(--ov-ink);font-weight:700;margin-right:8px}
-.ov-court{height:360px;display:grid;place-items:center;min-width:0}
-.ov-court svg{display:block;width:250px;height:auto;overflow:visible;transform:perspective(900px) rotateX(52deg) rotateZ(-32deg);transform-origin:center}
-@media (max-width:860px){.ov-hero .ov-wrap{grid-template-columns:1fr;padding-block:64px 48px;gap:24px}.ov-court{height:230px;order:2}.ov-court svg{width:170px}}
-@media (prefers-reduced-motion:no-preference){.ov-ball{animation:ov-ball 3.2s ease-in-out infinite alternate}@keyframes ov-ball{from{transform:translate(0,0)}to{transform:translate(64px,-150px)}}}
+@media (max-width:860px){.ov-hero .ov-wrap{padding-block:64px 48px}}
 
 /* grelhas e cartões */
 .ov-grid{display:grid;gap:28px}

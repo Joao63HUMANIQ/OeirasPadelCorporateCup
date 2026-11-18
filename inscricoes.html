@@ -120,8 +120,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
     <p class="ov-lead">Uma ficha por empresa e por envio: dados da empresa, duplas, jogadores e nível de cada dupla. Ao enviar, a organização recebe o registo e o ponto de contacto recebe um email de receção.</p>
     <ul class="ov-facts">
       <li><b>Evento 1</b>6-7 mar 2027</li>
-      <li><b>Evento 2</b>15-16 mai 2027, a confirmar</li>
-      <li><b>Masters</b>18-19 set 2027, por qualificação</li>
+      <li><b>Evento 2</b>8-9 mai 2027</li>
+      <li><b>Masters</b>25-26 set 2027, por qualificação</li>
       <li><a href="regulamento.html" style="color:#B83A24">Ler o regulamento</a></li>
     </ul>
   </div>
@@ -141,7 +141,7 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
     <legend class="req">Evento(s) em que a empresa se inscreve</legend>
     <div class="choices">
       <label class="choice"><input type="checkbox" id="ev1" name="eventos" value="Evento 1 (6-7 março 2027)"> Evento 1 · 6-7 março 2027</label>
-      <label class="choice"><input type="checkbox" id="ev2" name="eventos" value="Evento 2 (15-16 maio 2027, a confirmar)"> Evento 2 · 15-16 maio 2027 (a confirmar)</label>
+      <label class="choice"><input type="checkbox" id="ev2" name="eventos" value="Evento 2 (8-9 maio 2027)"> Evento 2 · 8-9 maio 2027</label>
     </div>
   </fieldset>
 </section>
@@ -194,7 +194,7 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
     <li>Em cada dupla, pelo menos 1 jogador é funcionário ou colaborador da empresa. Esse jogador é o capitão.</li>
     <li>Masculino: 2 jogadores. Feminino: 2 jogadoras. Misto: 1 jogador e 1 jogadora (ou 2 jogadoras).</li>
     <li>A dupla inscreve-se no nível do jogador mais forte: nível FPP 6 = Iniciante, 5 = Intermédio, 4 a 1 = Avançado.</li>
-    <li>Sem 16 duplas femininas inscritas num nível, as duplas femininas desse nível jogam no quadro Misto.</li>
+    <li>Sem 6 duplas femininas inscritas num nível, as duplas femininas desse nível jogam no quadro Misto.</li>
   </ul>
   <div class="matrix" aria-live="polite"><table id="matrix"></table></div>
   <div id="teams" style="display:grid;gap:16px"></div>
@@ -240,9 +240,14 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
 
 <script>
 /* ===== CONFIGURAÇÃO (versão site) =====
-   endpoint: URL que recebe a inscrição em JSON (POST). Ex.: um formulário Formspree, Getform,
-   ou um endpoint do próprio site. Vazio = a ficha mostra o resumo e um ficheiro para enviar por email. */
-const CONFIG = { mode: 'site', endpoint: 'api/inscricao.php', email: 'geral@human-iq.pt', maxPorQuadro: 3 };
+   O site está alojado no GitHub Pages (só ficheiros estáticos, sem PHP), por isso o envio usa o Formspree:
+   1. criar uma conta em formspree.io e um formulário com o destino geral@human-iq.pt;
+   2. substituir "SEU_FORM_ID" abaixo pelo ID desse formulário (a URL que o Formspree dá é
+      https://formspree.io/f/XXXXXXXX — é esse XXXXXXXX);
+   3. no painel do Formspree, activar "Reply-To" (já configurado aqui, campo _replyto) e, se o plano o permitir,
+      a funcionalidade "Autoresponder" para enviar automaticamente a confirmação ao autor da inscrição;
+      sem essa funcionalidade ligada, a organização responde manualmente ao email que o Formspree reencaminha. */
+const CONFIG = { mode: 'site', endpoint: 'https://formspree.io/f/mgakkrgg', email: 'geral@human-iq.pt', maxPorQuadro: 3 };
 
 const QUADROS = ['Masculino', 'Misto', 'Feminino'];
 const NIVEIS = ['Iniciante', 'Intermédio', 'Avançado'];
@@ -485,21 +490,29 @@ function showDone(d, extra) {
   $('#new-reg').onclick = () => { done.hidden = true; $('#form').hidden = false; };
 }
 
-/* ===== envio: versão site ===== */
+/* ===== envio: versão site (Formspree, GitHub Pages não corre PHP) ===== */
 async function submitSite(d) {
-  if (CONFIG.endpoint) {
-    /* O servidor (api/inscricao.php) gera o CSV, envia-o para a organização e responde por email ao ponto de contacto. */
-    let ok = false, conf = false;
+  if (CONFIG.endpoint && !/SEU_FORM_ID/.test(CONFIG.endpoint)) {
+    /* O Formspree reencaminha estes campos por email para geral@human-iq.pt; o registo completo (CSV) vai no campo "csv". */
+    ADMIN_ROWS = [d];
+    const payload = {
+      _subject: `Inscrição ${d.referencia} · ${d.empresa.nome}`,
+      _replyto: d.contacto.email,
+      referencia: d.referencia, empresa: d.empresa.nome, nif: d.empresa.nif, parque: d.empresa.parque,
+      contacto: d.contacto.nome, telefone: d.contacto.telefone, email: d.contacto.email,
+      eventos: d.eventos.join(' + '), duplas: String(d.equipas.length),
+      resumo: resumo(d), csv: csv(),
+    };
+    let ok = false;
     try {
-      const r = await fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(d) });
+      const r = await fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
       const j = await r.json().catch(() => null);
-      ok = r.ok && j && j.ok === true; conf = !!(j && j.confirmacao);
+      ok = r.ok && j && j.ok !== false;
     } catch { ok = false; }
     if (ok) {
-      showDone(d, `Enviámos a ficha à organização${conf ? ` e um email de receção para <b>${esc(d.contacto.email)}</b>` : ''}. A inscrição fica válida depois da confirmação da HUMAN-IQ e do pagamento.`);
+      showDone(d, `Enviámos a ficha à organização. Vai receber uma confirmação por email de <b>${CONFIG.email}</b>; a inscrição só fica válida depois dessa confirmação e do pagamento.`);
     } else {
       /* Sem resposta do servidor: a ficha não se perde. Descarrega o mesmo CSV para envio manual. */
-      ADMIN_ROWS = [d];
       const blob = new Blob(['﻿' + csv()], { type: 'text/csv;charset=utf-8' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = d.referencia + '.csv'; a.click();
       showDone(d, `<b>O envio automático falhou.</b> Guardámos o ficheiro <b>${d.referencia}.csv</b> no seu computador. Envie-o para <b>${CONFIG.email}</b> para concluir a inscrição.`);

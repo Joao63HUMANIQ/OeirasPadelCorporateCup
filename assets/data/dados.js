@@ -18,7 +18,7 @@ window.OVPCC = {
      evento:    'Evento 1' | 'Evento 2' | 'Masters'
      categoria: 'Masculinos' | 'Mistos' | 'Femininos'
      nivel:     'Iniciante' | 'Intermédio' | 'Avançado'
-     fase:      'Grupos' | 'Quadro A' | 'Quadro B'
+     fase:      'Grupos' | 'Eliminatórias'
      grupo:     nome do grupo (fase de grupos) ou da eliminatória (ex.: 'Meias-finais', 'Final')
      vencedor:  1 ou 2 */
   resultados: [
@@ -27,9 +27,9 @@ window.OVPCC = {
     { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Grupos', grupo: 'Grupo A', dupla1: 'Dupla 1', empresa1: 'Empresa A', dupla2: 'Dupla 3', empresa2: 'Empresa C', resultado: '7-6', vencedor: 1 },
     { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Grupos', grupo: 'Grupo B', dupla1: 'Dupla 5', empresa1: 'Empresa E', dupla2: 'Dupla 6', empresa2: 'Empresa F', resultado: '6-2', vencedor: 1 },
     { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Grupos', grupo: 'Grupo B', dupla1: 'Dupla 7', empresa1: 'Empresa G', dupla2: 'Dupla 8', empresa2: 'Empresa H', resultado: '4-6', vencedor: 2 },
-    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Quadro A', grupo: 'Meias-finais', dupla1: 'Dupla 1', empresa1: 'Empresa A', dupla2: 'Dupla 8', empresa2: 'Empresa H', resultado: '6-3', vencedor: 1 },
-    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Quadro A', grupo: 'Meias-finais', dupla1: 'Dupla 5', empresa1: 'Empresa E', dupla2: 'Dupla 4', empresa2: 'Empresa D', resultado: '5-7', vencedor: 2 },
-    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Quadro A', grupo: 'Final', dupla1: 'Dupla 1', empresa1: 'Empresa A', dupla2: 'Dupla 4', empresa2: 'Empresa D', resultado: '6-4 3-6 10-7', vencedor: 1 },
+    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Eliminatórias', grupo: 'Meias-finais', dupla1: 'Dupla 1', empresa1: 'Empresa A', dupla2: 'Dupla 8', empresa2: 'Empresa H', resultado: '6-3', vencedor: 1 },
+    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Eliminatórias', grupo: 'Meias-finais', dupla1: 'Dupla 5', empresa1: 'Empresa E', dupla2: 'Dupla 4', empresa2: 'Empresa D', resultado: '5-7', vencedor: 2 },
+    { evento: 'Evento 1', categoria: 'Masculinos', nivel: 'Iniciante', fase: 'Eliminatórias', grupo: 'Final', dupla1: 'Dupla 1', empresa1: 'Empresa A', dupla2: 'Dupla 4', empresa2: 'Empresa D', resultado: '6-4 3-6 10-7', vencedor: 1 },
   ],
 
   /* ---------- CLASSIFICAÇÃO POR EMPRESA ----------

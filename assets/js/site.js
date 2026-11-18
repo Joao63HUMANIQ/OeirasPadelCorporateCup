@@ -21,7 +21,7 @@
     ['galeria', 'galeria.html', 'Galeria']
   ];
   var ORGS = [
-    ['opa', 'Oeiras Padel Academy', 'assets/img/logo-opa-branco.png', ''],
+    ['opa', 'Oeiras Padel Academy', 'assets/img/logo-opa.png', 'ov-mono'],
     ['padel-players', 'Padel Players', 'assets/img/logo-padel-players.svg', 'ov-mono'],
     ['humaniq', 'HUMAN.IQ Padel Experiences', 'assets/img/logo-humaniq.png', 'ov-mono']
   ];
@@ -112,7 +112,7 @@
     var fEv = fill('#f-evento', ['Evento 1', 'Evento 2', 'Masters']);
     var fCat = fill('#f-categoria', ['Masculinos', 'Mistos', 'Femininos']);
     var fNiv = fill('#f-nivel', ['Iniciante', 'Intermédio', 'Avançado']);
-    var fFase = fill('#f-fase', ['Grupos', 'Quadro A', 'Quadro B']);
+    var fFase = fill('#f-fase', ['Grupos', 'Eliminatórias']);
     var out = $('#ov-resultados');
     var side = function (m, n) {
       return '<div class="ov-pair' + (n === 2 ? ' ov-side-b' : '') + (Number(m.vencedor) === n ? ' ov-win' : '') + '"><b>' + esc(m['dupla' + n]) + '</b><small>' + esc(m['empresa' + n]) + '</small></div>';
@@ -138,7 +138,7 @@
   /* ===== classificação por empresa ===== */
   if (page === 'classificacao') {
     var quadros = ['Geral'];
-    ['Masculinos', 'Mistos'].forEach(function (c) { ['Iniciante', 'Intermédio', 'Avançado'].forEach(function (n) { quadros.push(c + ' ' + n); }); });
+    ['Masculinos', 'Femininos', 'Mistos'].forEach(function (c) { ['Iniciante', 'Intermédio', 'Avançado'].forEach(function (n) { quadros.push(c + ' ' + n); }); });
     (D.classificacao || []).forEach(function (r) { if (quadros.indexOf(r.quadro) < 0) quadros.push(r.quadro); });
     var chips = $('#ov-quadros'), outC = $('#ov-classificacao'), atual = 'Geral';
     var renderC = function () {
