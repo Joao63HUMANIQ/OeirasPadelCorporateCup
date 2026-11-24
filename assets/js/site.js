@@ -63,7 +63,7 @@
       '<section class="ov-sponsors" aria-labelledby="ov-sp-h"><div class="ov-wrap">' +
         '<div class="ov-sponsors-head"><div>' +
           '<h2 id="ov-sp-h">Parceiros</h2>' +
-          '<p>192 a 288 profissionais de Oeiras, 3 fins de semana, 7 meses de exposição. Os espaços abaixo estão por ocupar.</p>' +
+          '<p>108 a 324 inscrições de profissionais de Oeiras, 3 fins de semana, 7 meses de exposição. Os espaços abaixo estão por ocupar.</p>' +
         '</div><a class="ov-btn" href="' + SPONSOR_URL + '">Reservar um espaço</a></div>' +
         '<div class="ov-tiers">' +
           tiers.map(function (t, i) {

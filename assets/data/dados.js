@@ -65,10 +65,10 @@ window.OVPCC = {
      "espacos" é o número de espaços desenhados na página. */
   parceiros: [
     { nivel: 'Naming Partner', vagas: '1 vaga', espacos: 1, logos: [] },
-    { nivel: 'Segment Partners', vagas: '2 a 3 vagas', espacos: 3, logos: [] },
-    { nivel: 'Competition Partners', vagas: '6 a 9 vagas', espacos: 6, logos: [] },
-    { nivel: 'Activation Partners', vagas: 'aberto', espacos: 4, logos: [] },
-    { nivel: 'Media Partners', vagas: '1 a 3 vagas', espacos: 3, logos: [] },
-    { nivel: 'Service Partners', vagas: 'aberto', espacos: 4, logos: [] },
+    { nivel: 'Segment Partners', vagas: '3 vagas', espacos: 3, logos: [] },
+    { nivel: 'Competition Partners', vagas: '9 vagas', espacos: 9, logos: [] },
+    { nivel: 'Activation Partners', vagas: '6 vagas', espacos: 6, logos: [] },
+    { nivel: 'Service Partners', vagas: '5 vagas', espacos: 5, logos: [] },
+    { nivel: 'Media Partners', vagas: '3 vagas', espacos: 3, logos: [] },
   ],
 };

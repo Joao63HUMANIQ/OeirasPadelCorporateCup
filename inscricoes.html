@@ -205,8 +205,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
   <h2><span>6</span>Pagamento e declarações</h2>
   <div class="pay">
     <div class="total"><span id="total-txt">0 duplas x 0 eventos</span><strong id="total-val">0 inscrições</strong></div>
-    <div>Valor por dupla e por evento: <span class="ph">€[__] + IVA (€[__] com IVA)</span>. Pagamento por transferência bancária para o IBAN <span class="ph">PT50 [____ ____ ____ ____ ____ _]</span>, até 48 horas antes do evento. Indique o nome da empresa no descritivo da transferência.</div>
-    <div>Inscrições abertas a partir de <span class="ph">[data]</span>. Mais informações: <span class="ph">[telefone]</span> ou geral@human-iq.pt.</div>
+    <div>Valor por jogador e por evento: <b>50 € + IVA</b> (61,50 € com IVA), ou seja 100 € + IVA por dupla (123 € com IVA). O Masters tem o mesmo valor, pago pelas duplas qualificadas. Pagamento por transferência bancária para o IBAN <span class="ph">a anunciar</span>, até 48 horas antes do evento. Indique o nome da empresa no descritivo da transferência.</div>
+    <div>Data de abertura das inscrições: <span class="ph">a anunciar</span>. Mais informações: +351 934 455 604 ou geral@human-iq.pt.</div>
     <div><b>O email automático de receção não confirma a inscrição.</b> A inscrição só é válida após confirmação por email da HUMAN-IQ Padel Experiences.</div>
   </div>
   <details>
@@ -247,7 +247,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding-block:0 40px}
    3. no painel do Formspree, activar "Reply-To" (já configurado aqui, campo _replyto) e, se o plano o permitir,
       a funcionalidade "Autoresponder" para enviar automaticamente a confirmação ao autor da inscrição;
       sem essa funcionalidade ligada, a organização responde manualmente ao email que o Formspree reencaminha. */
-const CONFIG = { mode: 'site', endpoint: 'https://formspree.io/f/mgakkrgg', email: 'geral@human-iq.pt', maxPorQuadro: 3 };
+const CONFIG = { mode: 'site', endpoint: 'https://formspree.io/f/mgakkrgg', email: 'geral@human-iq.pt', maxPorQuadro: 3, precoDupla: 100, iva: 0.23 };
+const eur = v => v.toLocaleString('pt-PT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 });
 
 const QUADROS = ['Masculino', 'Misto', 'Feminino'];
 const NIVEIS = ['Iniciante', 'Intermédio', 'Avançado'];
@@ -379,7 +380,8 @@ function refresh() {
   });
   const nEv = $$('input[name=eventos]:checked').length, nT = teams.length;
   $('#total-txt').textContent = `${nT} ${nT === 1 ? 'dupla' : 'duplas'} x ${nEv} ${nEv === 1 ? 'evento' : 'eventos'}`;
-  $('#total-val').textContent = `${nT * nEv} ${nT * nEv === 1 ? 'inscrição' : 'inscrições'} x €[__]`;
+  $('#total-val').textContent = `${eur(nT * nEv * CONFIG.precoDupla)} + IVA`;
+  $('#total-txt').textContent += ` · ${eur(nT * nEv * CONFIG.precoDupla * (1 + CONFIG.iva))} com IVA`;
 }
 
 function validate() {
@@ -473,7 +475,8 @@ function resumo(d) {
   const L = [`Inscrição ${d.referencia}`, `Empresa: ${d.empresa.nome} (NIF ${d.empresa.nif}) · ${d.empresa.parque}`, `Contacto: ${d.contacto.nome} · ${d.contacto.telefone} · ${d.contacto.email}`, `Eventos: ${d.eventos.join(' e ')}`, ''];
   d.equipas.forEach((t, i) => { L.push(`Dupla ${i + 1}: ${t.nome} · ${t.quadro} · ${t.nivel} · capitão: jogador ${t.capitao}`);
     t.jogadores.forEach((p, k) => L.push(`  J${k + 1}: ${p.nome} · ${p.sexo} · FPP ${p.nivelFPP}${p.licencaFPP ? ' (lic. ' + p.licencaFPP + ')' : ' (não federado)'} · ${p.vinculo} · ${p.email} · ${p.telemovel} · camisola ${p.camisola}`)); });
-  L.push('', `Total: ${d.equipas.length} duplas x ${d.eventos.length} eventos = ${d.equipas.length * d.eventos.length} inscrições`);
+  const n = d.equipas.length * d.eventos.length;
+  L.push('', `Total: ${d.equipas.length} duplas x ${d.eventos.length} eventos = ${n} inscrições de dupla · ${eur(n * CONFIG.precoDupla)} + IVA (${eur(n * CONFIG.precoDupla * (1 + CONFIG.iva))} com IVA)`);
   return L.join('\n');
 }
 
